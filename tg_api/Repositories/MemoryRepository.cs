@@ -9,8 +9,7 @@ namespace tg_api.Repositories
     public class MemoryRepository : IMemoryRepository
     {
         public  List<Item> items = new List<Item>
-        {
-            new Item{ID = Guid.NewGuid(), ItemDescription = "test receipt" }
+        { 
         };
 
         public IEnumerable<Item> GetItems()

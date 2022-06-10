@@ -21,15 +21,17 @@ namespace tg_api.Controllers
         public ItemContoller(IMemoryRepository repository, DictionaryClient dictionaryClient)
         {
             this.repository = repository;
-           _dictionaryClient = dictionaryClient;
+            _dictionaryClient = dictionaryClient;
 
         }
 
 
-        [HttpGet("word")]
+        [HttpGet("{word}")]
         public async Task<List<Word>> GetWord(string word)
-        {       
+        {
             var result = await _dictionaryClient.GetWordByWord(word);
+            //test
+            //_dictionaryClient.TakeToWordCollection(result);
             return result;
         }
 
@@ -41,51 +43,45 @@ namespace tg_api.Controllers
         //    return items;
         //}
 
-        [HttpGet("{id}")]
-        public ActionResult<ItemDto> GetItem(Guid id)
+        [HttpGet]
+        public async Task<List<List<Word>>> GetAllWords()
         {
-            return repository.GetItem(id) is null ? NotFound() : repository.GetItem(id).AsDto();
+            var result = await _dictionaryClient.AllWords();
+            return result;
         }
 
         // POST /items
-        [HttpPost]
-        public ActionResult<ItemDto> CreateItem(CreateItemDto itemDto)
+        [HttpPost("{word}")]
+        public async Task CreateItem(string word)
         {
-            Item item = new Item()
-            {
-                ID = Guid.NewGuid(),
-                ItemDescription = itemDto.ItemDescription
-            };
-            repository.CreateItem(item);
-            return CreatedAtAction(nameof(GetItem), new { id = item.ID }, item.AsDto());
+            var result = await _dictionaryClient.GetWordByWord(word);
+            
+            _dictionaryClient.TakeToWordCollection(result);
+            return;
         }
 
         //Put /items/{id}
-        [HttpPut("{id}")]
-        public ActionResult UpdateItem(Guid id, UpdateItemDto itemDto)
-        {
-            var existingItem = repository.GetItem(id);
-            if (existingItem is null)
-                return NotFound();
+        //[HttpPut("{id}")]
+        //public ActionResult UpdateItem(Guid id, UpdateItemDto itemDto)
+        //{
+        //    var existingItem = repository.GetItem(id);
+        //    if (existingItem is null)
+        //        return NotFound();
 
 
-            // ? witout using with
-            existingItem.ItemDescription = itemDto.ItemDescription;
+        //    // ? witout using with
+        //    existingItem.ItemDescription = itemDto.ItemDescription;
 
-            repository.UpdateItem(existingItem);
+        //    repository.UpdateItem(existingItem);
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
         //delete /items/{id}
-        [HttpDelete("{id}")]
-        public ActionResult DeleteItem(Guid id)
+        [HttpDelete("{word}")]
+        public async Task DeleteItem(string word)
         {
-            var existingItem = repository.GetItem(id);
-            if (existingItem is null)
-                return NotFound();
-            repository.DeleteItem(id);
-            return NoContent();
+             _dictionaryClient.DeleteWordFromCollection(word);   
         }
 
     }

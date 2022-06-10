@@ -11,12 +11,12 @@ namespace tg_api.Cleints
 {
     public class DictionaryClient
     {
-        private WebRequest webRequest;
-        
+
         private static string _adress;
         private static string _app_key;
         private static string _app_id;
         HttpClient _client;
+        static List<List<Word>> words = new();
 
         public DictionaryClient()
         {
@@ -35,7 +35,30 @@ namespace tg_api.Cleints
             response.EnsureSuccessStatusCode();
             var content = response.Content.ReadAsStringAsync().Result;
             var result = JsonConvert.DeserializeObject<List<Word>>(content);
+            
             return result;
         }
+
+        public async Task<List<List<Word>>> AllWords ()
+        {
+            return words;
+        }
+
+        public void TakeToWordCollection(List<Word> item)
+        {
+            words.Add(item);
+            return;
+        }
+
+        public void DeleteWordFromCollection (string word)
+        {
+
+           var index =  words.FindIndex(x =>x.Find(x => x.word == word).word == word);
+           
+            // int index = items.FindIndex(existingItem => existingItem.ID == id);
+            words.RemoveAt(index);
+            
+        }
+   
     }
 }
