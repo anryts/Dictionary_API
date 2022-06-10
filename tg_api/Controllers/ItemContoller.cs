@@ -13,7 +13,6 @@ namespace tg_api.Controllers
     [ApiController]
     public class ItemContoller : ControllerBase
     {
-       // private readonly IMemoryRepository repository;
         private readonly DictionaryClient _dictionaryClient;
 
         public ItemContoller(DictionaryClient dictionaryClient)
