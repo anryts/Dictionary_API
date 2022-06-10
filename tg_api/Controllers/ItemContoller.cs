@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using tg_api.Modes;
-using tg_api.Repositories;
-using tg_api.Dtos;
 using tg_api.Cleints;
 using System.Threading.Tasks;
 
@@ -15,12 +13,12 @@ namespace tg_api.Controllers
     [ApiController]
     public class ItemContoller : ControllerBase
     {
-        private readonly IMemoryRepository repository;
+       // private readonly IMemoryRepository repository;
         private readonly DictionaryClient _dictionaryClient;
 
-        public ItemContoller(IMemoryRepository repository, DictionaryClient dictionaryClient)
+        public ItemContoller(DictionaryClient dictionaryClient)
         {
-            this.repository = repository;
+            //this.repository = repository;
             _dictionaryClient = dictionaryClient;
 
         }

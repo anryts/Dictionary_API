@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using tg_api.Cleints;
-using tg_api.Repositories;
 
 namespace tg_api
 {
@@ -28,7 +27,7 @@ namespace tg_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IMemoryRepository, MemoryRepository>();
+            //services.AddSingleton<IMemoryRepository, MemoryRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
