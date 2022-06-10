@@ -26,10 +26,10 @@ namespace tg_api.Controllers
         }
 
 
-        [HttpGet("{word}")]
-        public async Task<Word> GetWord()
-        {
-            var result = await _dictionaryClient.GetWordByWord("hello");
+        [HttpGet("word")]
+        public async Task<List<Word>> GetWord(string word)
+        {       
+            var result = await _dictionaryClient.GetWordByWord(word);
             return result;
         }
 

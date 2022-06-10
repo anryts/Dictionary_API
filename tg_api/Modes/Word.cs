@@ -4,63 +4,48 @@ namespace tg_api.Modes
 {
 
 
+    public class Definition
+    {
+        public string definition { get; set; }
+        public List<object> synonyms { get; set; }
+        public List<object> antonyms { get; set; }
+    }
+
+    //public class License
+    //{
+    //    public string name { get; set; }
+    //    public string url { get; set; }
+    //}
+
+    public class Meaning
+    {
+        public string partOfSpeech { get; set; }
+        public List<Definition> definitions { get; set; }
+        public List<object> synonyms { get; set; }
+        public List<object> antonyms { get; set; }
+    }
+
+    public class Phonetic
+    {
+        public string text { get; set; }
+        public string audio { get; set; }
+        public string sourceUrl { get; set; }
+       // public License license { get; set; }
+    }
+
     public class Word
     {
-        public string id { get; set; }
-        public Metadata metadata { get; set; }
-        public List<Result> results { get; set; }
         public string word { get; set; }
+        public string phonetic { get; set; }
+        public List<Phonetic> phonetics { get; set; }
+        public List<Meaning> meanings { get; set; }
+      //  public License license { get; set; }
+        public List<string> sourceUrls { get; set; }
     }
 
 
 
-
-    public class Entry
-        {
-            public List<Pronunciation> pronunciations { get; set; }
-        }
-
-        public class LexicalCategory
-        {
-            public string id { get; set; }
-            public string text { get; set; }
-        }
-
-        public class LexicalEntry
-        {
-            public List<Entry> entries { get; set; }
-            public string language { get; set; }
-            public LexicalCategory lexicalCategory { get; set; }
-            public string text { get; set; }
-        }
-
-        public class Metadata
-        {
-            public string operation { get; set; }
-            public string provider { get; set; }
-            public string schema { get; set; }
-        }
-
-        public class Pronunciation
-        {
-            public string audioFile { get; set; }
-            public List<string> dialects { get; set; }
-            public string phoneticNotation { get; set; }
-            public string phoneticSpelling { get; set; }
-        }
-
-        public class Result
-        {
-            public string id { get; set; }
-            public string language { get; set; }
-            public List<LexicalEntry> lexicalEntries { get; set; }
-            public string type { get; set; }
-            public string word { get; set; }
-        }
-
-       
-
-    }
+}
 
 
 
