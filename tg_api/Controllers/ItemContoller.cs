@@ -24,12 +24,64 @@ namespace tg_api.Controllers
 
 
         [HttpGet("{word}")]
-        public async Task<List<Word>> GetWord(string word)
+        public async Task<WordResponesForTG> GetWord(string word)
         {
-            var result = await _dictionaryClient.GetWordByWord(word);
-            //test
-            //_dictionaryClient.TakeToWordCollection(result);
+            var tmp = await _dictionaryClient.GetWordByWord(word);
+            //var t = (tmp.Select(word => word.phonetics.Where(x => x.audio !="")).FirstOrDefault());
+            //var t1 = tmp.Select(x => x.meanings);
+            //var t2 = t1.Select(x => x.Where(x => x.definitions != null));
+            //var for_textSpech = tmp.Select(word => word.phonetics.Where(x => x.text != null)).FirstOrDefault();
+           // var for_textphonectick = tmp.Select(word => word.meanings.Where(x => x.partOfSpeech != null)).FirstOrDefault();
+            //List<string> _synonyms = new();
+           
+            List<string[]> words = new();
+            foreach (var m in tmp)
+            {
+                
+                foreach(var n in m.meanings)
+                {
+
+                    if (n.example != null)
+                    {
+                        var part_Of_speech = n.partOfSpeech;
+                        var example = n.example;
+                        foreach (var definition in n.definitions)
+                        {
+                            words.Add(new string[] { part_Of_speech, definition.definition, example }); 
+                        }
+
+                        //words.Add(smallwords);
+                        foreach (var nt in n.synonyms)
+                        {
+                            if(nt != null)
+                                _synonyms.Add(nt.ToString());
+                        }
+                    }
+                   
+                }
+            }
+
+
+
+
+            var result = new WordResponesForTG
+            {
+                word = tmp.
+                audio = t.Select(x => x.audio).FirstOrDefault(),
+                meanings = words,
+                synonyms = _synonyms,
+                text_phonetic = for_textSpech.Select(x => x.text).FirstOrDefault(),
+            };
+            //var result = new WordResponse()
+            //{
+            //    word = tmp.Select(word => word.word),
+            //    phonetics = tmp.Select(word => word.phonetics.Where(x => x.audio != null )).FirstOrDefault(),
+            //    meanings = tmp.Select(word => word.meanings.Where(x => x.definitions != null && x.synonyms!=null)).FirstOrDefault()
+
+            //};
+
             return result;
+            //return result;
         }
 
 

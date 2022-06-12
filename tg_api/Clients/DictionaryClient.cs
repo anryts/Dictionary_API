@@ -24,12 +24,12 @@ namespace tg_api.Cleints
 
         }
 
-        public async Task<List<Word>> GetWordByWord(string word_t)
+        public async Task<Word> GetWordByWord(string word_t)
         {
             var response = await _client.GetAsync(word_t);
             response.EnsureSuccessStatusCode();
             var content = response.Content.ReadAsStringAsync().Result;
-            var result = JsonConvert.DeserializeObject<List<Word>>(content);
+            var result = JsonConvert.DeserializeObject<Word>(content);
             
             return result;
         }
