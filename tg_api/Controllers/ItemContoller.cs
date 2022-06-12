@@ -27,12 +27,12 @@ namespace tg_api.Controllers
         public async Task<WordResponesForTG> GetWord(string word)
         {
             var tmp = await _dictionaryClient.GetWordByWord(word);
-            //var t = (tmp.Select(word => word.phonetics.Where(x => x.audio !="")).FirstOrDefault());
+            var t = (tmp.Select(word => word.phonetics.Where(x => x.audio !="")).FirstOrDefault());
             //var t1 = tmp.Select(x => x.meanings);
             //var t2 = t1.Select(x => x.Where(x => x.definitions != null));
-            //var for_textSpech = tmp.Select(word => word.phonetics.Where(x => x.text != null)).FirstOrDefault();
-           // var for_textphonectick = tmp.Select(word => word.meanings.Where(x => x.partOfSpeech != null)).FirstOrDefault();
-            //List<string> _synonyms = new();
+            var for_textSpech = tmp.Select(word => word.phonetics.Where(x => x.text != null)).FirstOrDefault();
+            var for_textphonectick = tmp.Select(word => word.meanings.Where(x => x.partOfSpeech != null)).FirstOrDefault();
+            List<string> _synonyms = new();
            
             List<string[]> words = new();
             foreach (var m in tmp)
@@ -41,13 +41,18 @@ namespace tg_api.Controllers
                 foreach(var n in m.meanings)
                 {
 
-                    if (n.example != null)
+                    
+                    var part_Of_speech = n.partOfSpeech;
+                    var example = n.example;
+                    if (n.definitions != null)
                     {
-                        var part_Of_speech = n.partOfSpeech;
-                        var example = n.example;
-                        foreach (var definition in n.definitions)
+                       
+                       foreach (var definition in n.definitions)
                         {
-                            words.Add(new string[] { part_Of_speech, definition.definition, example }); 
+
+
+                            words.Add(new string[] { part_Of_speech, definition.definition, example }); ;
+
                         }
 
                         //words.Add(smallwords);
@@ -66,7 +71,7 @@ namespace tg_api.Controllers
 
             var result = new WordResponesForTG
             {
-                word = tmp.
+                word = tmp.Select(word => word.word).FirstOrDefault(),
                 audio = t.Select(x => x.audio).FirstOrDefault(),
                 meanings = words,
                 synonyms = _synonyms,

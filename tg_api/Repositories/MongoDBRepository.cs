@@ -16,7 +16,7 @@ namespace tg_api.Repositories
         {
 
         }
-        public Task<List<Word>> AllWords()
+        public Task<List<List<Word>>> AllWords()
         {
             throw new System.NotImplementedException();
         }
