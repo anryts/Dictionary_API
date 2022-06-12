@@ -35,5 +35,10 @@ namespace tg_api.Repositories
         {
             throw new System.NotImplementedException();
         }
+
+        Task<Word> IDictionaryClient.GetWordByWord(string word_t)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
