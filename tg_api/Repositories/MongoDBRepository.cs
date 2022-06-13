@@ -10,33 +10,36 @@ namespace tg_api.Repositories
     {
         private const string databaseName = "collection";
         private const string collectionName = "words";
-        private readonly IMongoCollection<WordResponse> itemsCollection;
+        private readonly IMongoCollection<Word> itemsCollection;
         
         public MongoDBRepository(IMongoClient mongoClient)
         {
-
+            IMongoDatabase database = mongoClient.GetDatabase(databaseName);
+            itemsCollection = database.GetCollection<Word>(collectionName);
         }
-        public Task<List<List<Word>>> AllWords()
+
+        public void CreateItem (Word word)
+        {
+            itemsCollection.InsertOne(word);
+        }
+
+        public Task<List<Word>> AllWords()
         {
             throw new System.NotImplementedException();
         }
 
-        public void DeleteWordFromCollection(string word)
+       
+        public Task<Word> GetWordByWord(string word_t)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<List<Word>> GetWordByWord(string word_t)
+        public void TakeToWordCollection(Word item)
         {
             throw new System.NotImplementedException();
         }
 
-        public void TakeToWordCollection(List<Word> item)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        Task<Word> IDictionaryClient.GetWordByWord(string word_t)
+        public void DeleteWordFromCollection(Word word)
         {
             throw new System.NotImplementedException();
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System.Collections.Generic;
 
 namespace tg_api.Modes
 {
@@ -33,14 +34,16 @@ namespace tg_api.Modes
         //public string sourceUrl { get; set; }
        // public License license { get; set; }
     }
-
+    
     public class Word
     {
+        [BsonId]
         public string word { get; set; }
        // public string phonetic { get; set; }
         public List<Phonetic> phonetics { get; set; }
         public List<Meaning> meanings { get; set; }
-         public License license { get; set; }
+        
+        //public License license { get; set; }
        // public List<string> sourceUrls { get; set; }
     }
 

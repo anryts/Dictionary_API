@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Policy;
@@ -14,7 +15,7 @@ namespace tg_api.Cleints
 
         private static string _adress;
         HttpClient _client;
-        static List<List<Word>> words = new();
+       public List<Word> words = new();
 
         public DictionaryClient()
         {
@@ -34,23 +35,24 @@ namespace tg_api.Cleints
             return result;
         }
 
-        public async Task<List<List<Word>>> AllWords ()
+        public async Task<List<Word>> AllWords ()
         {
             return words;
         }
 
-        public void TakeToWordCollection(List<Word> item)
+        public void TakeToWordCollection(Word item)
         {
             words.Add(item);
             return;
         }
 
-        public void DeleteWordFromCollection (string word)
+
+        public void DeleteWordFromCollection(Word word)
         {
-            var index =  words.FindIndex(x =>x.Find(x => x.word == word).word == word);           
-            words.RemoveAt(index);
-            
+            var result = words.Find(x => x.word ==word.word);
+            if (result == null)
+                return;
+            words.Remove(result);
         }
-   
     }
 }
