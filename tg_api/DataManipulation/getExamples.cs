@@ -21,7 +21,6 @@ namespace tg_api.DataManipulation
                     }
                 }
             }
-
             return examples[rn.Next(0,examples.Count)];
         }
     }

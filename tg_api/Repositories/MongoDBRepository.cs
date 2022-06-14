@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using tg_api.Clients;
@@ -24,16 +25,18 @@ namespace tg_api.Repositories
             itemsCollection.InsertOne(word);
         }
 
-        public Task<List<Word>> AllWords()
+        public  async Task<List<Word>> AllWords()
         {
-            throw new System.NotImplementedException();
+           //List<Word> words = new List<Word>();
+            var documents =  itemsCollection.Find(new BsonDocument()).ToList();
+            return documents;
         }
 
        
-        public Task<Word> GetWordByWord(string word_t)
-        {
-            throw new System.NotImplementedException();
-        }
+        //public Task<Word> GetWordByWord(string word_t)
+        //{
+        //    throw new System.NotImplementedException();
+        //}
 
         public void TakeToWordCollection(Word item)
         {
@@ -45,5 +48,12 @@ namespace tg_api.Repositories
             var filter = filterBuilder.Eq(item => item.word, word.word);
             itemsCollection.DeleteOne(filter);
         }
+
+        public Task<Word> GetWordByWord(string word_t)
+        {
+            throw new System.NotImplementedException();
+        }
+
+       
     }
 }
