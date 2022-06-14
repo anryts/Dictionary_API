@@ -22,6 +22,8 @@ namespace tg_api
     {
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+       
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -35,8 +37,8 @@ namespace tg_api
 
             services.AddSingleton<IMongoClient>(ServiceProvider =>
             {
-                var settings = Configuration.GetSection(nameof(MongoDBsettings)).Get<MongoDBsettings>();
-                return new MongoClient(settings.ConnectionString);
+                var settings = MongoClientSettings.FromConnectionString("mongodb+srv://anryts:wer12345@cluster0.vaskk.mongodb.net/?retryWrites=true&w=majority"); ;
+                return new MongoClient(settings);
 
             });
 

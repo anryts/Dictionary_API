@@ -11,7 +11,8 @@ namespace tg_api.Repositories
         private const string databaseName = "collection";
         private const string collectionName = "words";
         private readonly IMongoCollection<Word> itemsCollection;
-        
+        private readonly FilterDefinitionBuilder<Word> filterBuilder = Builders<Word>.Filter;
+
         public MongoDBRepository(IMongoClient mongoClient)
         {
             IMongoDatabase database = mongoClient.GetDatabase(databaseName);
@@ -36,12 +37,13 @@ namespace tg_api.Repositories
 
         public void TakeToWordCollection(Word item)
         {
-            throw new System.NotImplementedException();
+            itemsCollection.InsertOne(item);
         }
 
         public void DeleteWordFromCollection(Word word)
         {
-            throw new System.NotImplementedException();
+            var filter = filterBuilder.Eq(item => item.word, word.word);
+            itemsCollection.DeleteOne(filter);
         }
     }
 }

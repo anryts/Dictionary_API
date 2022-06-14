@@ -7,6 +7,8 @@ using tg_api.Modes;
 using tg_api.Cleints;
 using System.Threading.Tasks;
 using tg_api.DataManipulation;
+using MongoDB.Driver;
+using tg_api.Clients;
 
 namespace tg_api.Controllers
 {
@@ -15,12 +17,14 @@ namespace tg_api.Controllers
     public class ItemContoller : ControllerBase
     {
         private readonly DictionaryClient _dictionaryClient;
+        private readonly IDictionaryClient repository;
         public Word tmp = new();
         List<Word> words = new List<Word>();
-        public ItemContoller(DictionaryClient dictionaryClient)
+        public ItemContoller(DictionaryClient dictionaryClient, IDictionaryClient repository)
         {
             //this.words = words;
             _dictionaryClient = dictionaryClient;
+            this.repository = repository;
 
         }
 
@@ -34,10 +38,12 @@ namespace tg_api.Controllers
         }
 
 
-        [HttpGet("getExample")]
-        public string GetExample()
+        [HttpGet("getExample{word}")]
+        public async Task<string> GetExample(string word)
         {
-            return null;
+           var result =  await _dictionaryClient.GetExampleByWord(word);
+            getExamples examples = new();
+            return examples.ReturnRandomExample(result);
         }
 
         [HttpGet("getCollection")]
@@ -63,7 +69,7 @@ namespace tg_api.Controllers
     public  async Task PutWordToCollection(string word)
     {
         var tmp = await _dictionaryClient.GetWordByWord(word);
-            _dictionaryClient.TakeToWordCollection(tmp);
+            repository.TakeToWordCollection(tmp);
 
     }
 
@@ -72,7 +78,7 @@ namespace tg_api.Controllers
         public async Task DeleteItem(string word)
         {
             var tmp = await _dictionaryClient.GetWordByWord(word);
-            _dictionaryClient.DeleteWordFromCollection(tmp);   
+            repository.DeleteWordFromCollection(tmp);   
         }
 
     }

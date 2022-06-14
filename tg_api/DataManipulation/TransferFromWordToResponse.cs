@@ -34,7 +34,7 @@ namespace tg_api.DataManipulation
                 audio = tmp.phonetics.Select(x => x.audio).FirstOrDefault(),
                 meanings = words,
                 synonyms = _synonyms,
-                text_phonetic = tmp.phonetics[1].text
+                text_phonetic = tmp.phonetics.Select(x => x.text).FirstOrDefault(),
             };
             return result;
         }
