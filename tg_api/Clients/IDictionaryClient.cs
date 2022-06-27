@@ -7,8 +7,8 @@ namespace tg_api.Clients
     public interface IDictionaryClient
     {
         Task<Word> GetWordByWord(string word_t);
-        Task<List<Word>> AllWords();
-        void TakeToWordCollection(Word word);
+        Task<List<Word>> AllWords(string collectionName);
+        void TakeToWordCollection(Word word, string NameCollection);
         void DeleteWordFromCollection(Word word);
     }
 }

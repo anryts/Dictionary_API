@@ -73,5 +73,15 @@ namespace tg_api.Cleints
                 return;
             words.Remove(result);
         }
+
+        public void TakeToWordCollection(Word word, string NameCollection)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Word>> AllWords(string collectionName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -10,24 +10,26 @@ namespace tg_api.Repositories
     public class MongoDBRepository : IDictionaryClient
     {
         private const string databaseName = "collection";
-        private const string collectionName = "words";
-        private readonly IMongoCollection<Word> itemsCollection;
+       // readonly  string collectionName = "words";
+        public  IMongoCollection<Word> itemsCollection;
         private readonly FilterDefinitionBuilder<Word> filterBuilder = Builders<Word>.Filter;
-
+        IMongoDatabase database;
         public MongoDBRepository(IMongoClient mongoClient)
         {
-            IMongoDatabase database = mongoClient.GetDatabase(databaseName);
-            itemsCollection = database.GetCollection<Word>(collectionName);
+            database = mongoClient.GetDatabase(databaseName);
+            //itemsCollection = database.GetCollection<Word>(collectionName);
         }
 
-        public void CreateItem (Word word)
+        public void CreateItem (Word word, string collectionName)
         {
+            itemsCollection = database.GetCollection<Word>(collectionName);
             itemsCollection.InsertOne(word);
         }
 
-        public  async Task<List<Word>> AllWords()
+        public  async Task<List<Word>> AllWords(string collectionName)
         {
-           //List<Word> words = new List<Word>();
+            //List<Word> words = new List<Word>();
+            itemsCollection = database.GetCollection<Word>(collectionName);
             var documents =  itemsCollection.Find(new BsonDocument()).ToList();
             return documents;
         }
@@ -38,8 +40,9 @@ namespace tg_api.Repositories
         //    throw new System.NotImplementedException();
         //}
 
-        public void TakeToWordCollection(Word item)
+        public void TakeToWordCollection(Word item,  string collectionName)
         {
+            itemsCollection = database.GetCollection<Word>(collectionName);
             itemsCollection.InsertOne(item);
         }
 

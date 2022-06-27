@@ -47,9 +47,9 @@ namespace tg_api.Controllers
         }
 
         [HttpGet("getCollection")]
-        public async Task<List<Word>> GetAllWordsFromDB()
+        public async Task<List<Word>> GetAllWordsFromDB(string name_of_collection)
         {
-            var result = await repository.AllWords();
+            var result = await repository.AllWords(name_of_collection);
             return result;
         }
 
@@ -65,11 +65,11 @@ namespace tg_api.Controllers
 
         //Put /items/{id
     
-    [HttpPut("{word}")]
-    public  async Task PutWordToDB(string word)
+    [HttpPost("toCollection")]
+    public  async Task PutWordToDB(string word, string name_of_collection)
     {
         var tmp = await _dictionaryClient.GetWordByWord(word);
-            repository.TakeToWordCollection(tmp);
+            repository.TakeToWordCollection(tmp, name_of_collection);
 
     }
 
