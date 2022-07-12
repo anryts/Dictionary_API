@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace tg_api.Modes
-{
-   
+{ 
         public class LexicalCategory
         {
             public string id { get; set; }

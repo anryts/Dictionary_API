@@ -1,10 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Security.Policy;
+using Google.Cloud.Translation.V2;
 using System.Threading.Tasks;
 using tg_api.Clients;
 using tg_api.Modes;
@@ -15,6 +13,7 @@ namespace tg_api.Cleints
     public class DictionaryClient : IDictionaryClient
     {
 
+      
         private static string _adress;
         HttpClient _client;
         HttpClient _httpClient;

@@ -39,11 +39,9 @@ namespace tg_api
             {
                 var settings = MongoClientSettings.FromConnectionString("mongodb+srv://anryts:wer12345@cluster0.vaskk.mongodb.net/?retryWrites=true&w=majority"); ;
                 return new MongoClient(settings);
-
             });
 
             services.AddSingleton<IDictionaryClient, MongoDBRepository>();
-            //services.AddSingleton<IMemoryRepository, MemoryRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
