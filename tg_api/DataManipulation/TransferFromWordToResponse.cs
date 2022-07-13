@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using tg_api.Modes;
+using tg_api.Models;
 
 namespace tg_api.DataManipulation
 {

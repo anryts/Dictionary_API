@@ -1,10 +1,8 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using System.Collections.Generic;
 
-namespace tg_api.Modes
+namespace tg_api.Models
 {
-
-
     public class Definition
     {
         public string definition { get; set; }

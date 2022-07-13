@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
-namespace tg_api.Modes
+namespace tg_api.Models
 {
     public class WordResponse
     {

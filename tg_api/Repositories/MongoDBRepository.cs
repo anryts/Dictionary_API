@@ -3,7 +3,7 @@ using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using tg_api.Clients;
-using tg_api.Modes;
+using tg_api.Models;
 
 namespace tg_api.Repositories
 {
@@ -57,6 +57,9 @@ namespace tg_api.Repositories
             throw new System.NotImplementedException();
         }
 
-       
+        public Task<Word> GetWordFromAPI(string word_t)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
