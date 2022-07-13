@@ -8,21 +8,21 @@ namespace tg_api.DataManipulation
     static class getPartsOfEntries 
     {
         static Random _rn = new Random();
-        //public static string ReturnRandomExample (RootOfSentences word)
-        //{
-        //    List<string> _examples = new();
-        //    foreach (var results in word.results)
-        //    {
-        //        foreach (var lexicalEntry in results.lexicalEntries)
-        //        {
-        //            foreach (var sentence in lexicalEntry.sentences)
-        //            {
-        //                _examples.Add(sentence.text);
-        //            }
-        //        }
-        //    }
-        //    return _examples[_rn.Next(0,_examples.Count)];
-        //}
+        public static string ReturnRandomExample(RootOfSentences word)
+        {
+            List<string> _examples = new();
+            foreach (var results in word.results)
+            {
+                foreach (var lexicalEntry in results.lexicalEntries)
+                {
+                    foreach (var sentence in lexicalEntry.sentences)
+                    {
+                        _examples.Add(sentence.text);
+                    }
+                }
+            }
+            return _examples[_rn.Next(0, _examples.Count)];
+        }
 
         ///<summary>
         ///This methods return a list 

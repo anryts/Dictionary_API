@@ -15,13 +15,10 @@ namespace tg_api.Controllers
         private readonly DictionaryClient _dictionaryClient;
         private readonly IDictionaryClient repository;
         public Word tmp = new();
-        List<Word> words = new List<Word>();
         public ItemContoller(DictionaryClient dictionaryClient, IDictionaryClient repository)
         {
-            //this.words = words;
             _dictionaryClient = dictionaryClient;
             this.repository = repository;
-
         }
 
 
@@ -37,38 +34,37 @@ namespace tg_api.Controllers
         }
 
 
-    //    [HttpGet("getExample{word}")]
-    //    public async Task<string> GetExample(string word)
-    //    {
-    //       var result =  await _dictionaryClient.GetExampleByWord(word);
-    //        getExamples examples = new();
-    //        return examples.ReturnRandomExample(result);
-    //    }
+        [HttpGet("example")]
+        public async Task<string> GetExample(string word)
+        {
+            var result = await _dictionaryClient.GetExampleByWord(word);
+            return getPartsOfEntries.ReturnRandomExample(result);
+        }
 
-    //    [HttpGet("getCollection")]
-    //    public async Task<List<Word>> GetAllWordsFromDB(string name_of_collection)
-    //    {
-    //        var result = await repository.AllWords(name_of_collection);
-    //        return result;
-    //    }
+        [HttpGet("getCollection")]
+        public async Task<List<Word>> GetAllWordsFromDB(string name_of_collection)
+        {
+            var result = await repository.AllWords(name_of_collection);
+            return result;
+        }
 
-       
-    
-    //[HttpPost("toCollection")]
-    //public  async Task PutWordToDB(string word, string name_of_collection)
-    //{
-    //    var tmp = await _dictionaryClient.GetWordFromAPI(word);
-    //        repository.TakeToWordCollection(tmp, name_of_collection);
 
-    //}
 
-    ////delete /items/{id}
-    //[HttpDelete("{word}")]
-    //    public async Task DeleteItem(string word)
-    //    {
-    //        var tmp = await _dictionaryClient.GetWordFromAPI(word);
-    //        repository.DeleteWordFromCollection(tmp);   
-    //    }
+        //[HttpPost("toCollection")]
+        //public  async Task PutWordToDB(string word, string name_of_collection)
+        //{
+        //    var tmp = await _dictionaryClient.GetWordFromAPI(word);
+        //        repository.TakeToWordCollection(tmp, name_of_collection);
+
+        //}
+
+        ////delete /items/{id}
+        //[HttpDelete("{word}")]
+        //    public async Task DeleteItem(string word)
+        //    {
+        //        var tmp = await _dictionaryClient.GetWordFromAPI(word);
+        //        repository.DeleteWordFromCollection(tmp);   
+        //    }
 
     }
 }

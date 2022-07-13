@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using Google.Cloud.Translation.V2;
 using System.Threading.Tasks;
 using tg_api.Clients;
 using tg_api.Models;
@@ -25,7 +24,7 @@ namespace tg_api.Cleints
             _client = new HttpClient();
             _client.BaseAddress = new Uri(_adress);
             _httpClient = new HttpClient();
-            _adress = Constants._dict_address_entries;
+            _adress = Constants._dict_address;
             _httpClient.BaseAddress = new Uri(_adress);
             _httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
             _httpClient.DefaultRequestHeaders.Add("app_id", "6c41fe93");
@@ -35,7 +34,7 @@ namespace tg_api.Cleints
 
         public async Task<RootOfEntries> GetWordFromAPI(string word)
         {
-            var response = await _httpClient.GetAsync(word);
+            var response = await _httpClient.GetAsync("entries/" +$"{GoogleTranslate.GoogleTranslate.DetectLanguage(word)}/"+word);
             response.EnsureSuccessStatusCode();
             var content = response.Content.ReadAsStringAsync().Result;
             var tmp = JsonConvert.DeserializeObject<RootOfEntries>(content);
@@ -44,14 +43,14 @@ namespace tg_api.Cleints
         }
 
 
-        //public async Task<RootOfSentences> GetExampleByWord (string word)
-        //{
-        //    var response = await _httpClient.GetAsync(word);
-        //    response.EnsureSuccessStatusCode();
-        //    var content = response.Content.ReadAsStringAsync().Result;
-        //    var tmp = JsonConvert.DeserializeObject<RootOfSentences>(content);
-        //    return  tmp;
-        //}
+        public async Task<RootOfSentences> GetExampleByWord(string word)
+        {
+            var response = await _httpClient.GetAsync("sentences/"+$"{GoogleTranslate.GoogleTranslate.DetectLanguage(word)}/"+word);
+            response.EnsureSuccessStatusCode();
+            var content = response.Content.ReadAsStringAsync().Result;
+            var tmp = JsonConvert.DeserializeObject<RootOfSentences>(content);
+            return tmp;
+        }
 
         public async Task<List<Word>> AllWords ()
         {
