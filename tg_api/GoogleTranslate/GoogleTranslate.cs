@@ -1,10 +1,11 @@
 ﻿using Google.Cloud.Translation.V2;
+using tg_api.Support;
 
 namespace tg_api.GoogleTranslate
 {
     static class GoogleTranslate
     {
-        static TranslationClient _client  = TranslationClient.CreateFromApiKey("AIzaSyCf3vMKkpT1Z9ifF3z-1-JvizzCO-uatPY");
+        static TranslationClient _client  = TranslationClient.CreateFromApiKey(API_KEYS._google_translate_api);
         public  static string DetectLanguage (string word)
         {
             return _client.DetectLanguage(word).Language;

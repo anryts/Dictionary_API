@@ -1,11 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using tg_api.Clients;
 using tg_api.Models;
-
+using tg_api.Support;
 
 namespace tg_api.Cleints
 {
@@ -16,10 +15,10 @@ namespace tg_api.Cleints
         public DictionaryClient()
         {          
             _httpClient = new HttpClient();
-            _httpClient.BaseAddress = new Uri(Constants._dict_address);
+            _httpClient.BaseAddress = new Uri(URL._dict_address);
             _httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
-            _httpClient.DefaultRequestHeaders.Add("app_id", "6c41fe93");
-            _httpClient.DefaultRequestHeaders.Add("app_key", "5cf10e177dc05e3957298e8121ee7922");
+            _httpClient.DefaultRequestHeaders.Add("app_id", API_KEYS._app_id);
+            _httpClient.DefaultRequestHeaders.Add("app_key", API_KEYS._app_key);
 
         }
 
