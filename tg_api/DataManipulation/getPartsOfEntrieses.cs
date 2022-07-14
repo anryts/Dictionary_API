@@ -25,14 +25,15 @@ namespace tg_api.DataManipulation
         }
 
         ///<summary>
-        ///This methods return a list 
+        ///This method return a list 
         ///element at index 0 is PhoneticSpelling: example "ˈflaʊə"
         ///element at index 1 is ShortDefinition
         ///</summary>
-        public static List<string> ReturnDefinitionWithPronunciation (RootOfEntries word)
+        public static List<string> ReturnDefinitionWithPronunciation(RootOfEntries word)
         {
-            var _return_list = new List<string>();
-            var _list_definitions = new List<string>();
+            var return_list = new List<string>();
+            var list_definitions = new List<string>();
+            string text_pronunce = default;
             foreach (var result in word.results)
             {
                 foreach (var lexicalEntry in result.lexicalEntries)
@@ -43,17 +44,24 @@ namespace tg_api.DataManipulation
                         {
                             if (tmp.phoneticSpelling != null)
                             {
-                                _return_list.Add(tmp.phoneticSpelling);
+                                text_pronunce = tmp.phoneticSpelling;
                                 break;
                             }
                         }
                         foreach (var sense in entry.senses)
-                            _list_definitions.Add(sense.shortDefinitions[_rn.Next(0, sense.shortDefinitions.Count - 1)]);
+                        {
+                            foreach (var tmp in sense.shortDefinitions)
+                            {
+                                list_definitions.Add(tmp);
+                            }
+                        }
+                            
                     }
                 }
             }
-            _return_list.Add(_list_definitions[_rn.Next(0, _list_definitions.Count - 1)]);
-            return _return_list;
+            return_list.Add(text_pronunce);
+            return_list.Add(list_definitions[_rn.Next(0, list_definitions.Count - 1)]);
+            return return_list;
         }
 
         public static string ReturnVoicePronunce (RootOfEntries word)
@@ -81,23 +89,30 @@ namespace tg_api.DataManipulation
         public static string RandomSynonym (RootOfEntries word)
         {
             var _list_of_synonyms = new List<string>();
-            foreach (var result in word.results)
+            try
             {
-                foreach (var lexicalEntry in result.lexicalEntries)
+                foreach (var result in word.results)
                 {
-                    foreach (var entry in lexicalEntry.entries)
+                    foreach (var lexicalEntry in result.lexicalEntries)
                     {
-                        foreach (var sense in entry.senses)
+                        foreach (var entry in lexicalEntry.entries)
                         {
-                            foreach (var tmp in sense.synonyms)
+                            foreach (var sense in entry.senses)
                             {
-                                _list_of_synonyms.Add(tmp.text);
+                                foreach (var tmp in sense.synonyms)
+                                {
+                                    _list_of_synonyms.Add(tmp.text);
+                                }
                             }
                         }
                     }
                 }
+                return _list_of_synonyms[_rn.Next(0, _list_of_synonyms.Count - 1)];
             }
-            return _list_of_synonyms[_rn.Next(0, _list_of_synonyms.Count - 1)];
+            catch
+            {
+                return null;
+            }
         }
     }
 

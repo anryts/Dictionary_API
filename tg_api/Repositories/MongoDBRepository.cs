@@ -7,59 +7,46 @@ using tg_api.Models;
 
 namespace tg_api.Repositories
 {
-    public class MongoDBRepository : IDictionaryClient
+    public class MongoDBRepository : IDBRepository
     {
         private const string databaseName = "collection";
-       // readonly  string collectionName = "words";
-        public  IMongoCollection<Word> itemsCollection;
+        public IMongoCollection<Word> itemsCollection;
+        private Word _db_word = new Word();
         private readonly FilterDefinitionBuilder<Word> filterBuilder = Builders<Word>.Filter;
         IMongoDatabase database;
         public MongoDBRepository(IMongoClient mongoClient)
         {
             database = mongoClient.GetDatabase(databaseName);
-            //itemsCollection = database.GetCollection<Word>(collectionName);
         }
 
-        public void CreateItem (Word word, string collectionName)
+        //public void CreateItem(string word, string collectionName)
+        //{
+        //    itemsCollection = database.GetCollection<Word>(collectionName);
+        //    itemsCollection.InsertOne(Word);
+        //}
+
+        public async Task<List<string>> AllWords(string collectionName)
         {
+            List<string> words = new List<string>();
             itemsCollection = database.GetCollection<Word>(collectionName);
-            itemsCollection.InsertOne(word);
+            var documents = itemsCollection.Find(new BsonDocument()).ToList();
+            documents.ForEach(x => words.Add(x.word));
+            return words;
         }
 
-        public  async Task<List<Word>> AllWords(string collectionName)
+        public void TakeWordToCollection(string item, string collectionName)
         {
-            //List<Word> words = new List<Word>();
+            _db_word.word = item;
             itemsCollection = database.GetCollection<Word>(collectionName);
-            var documents =  itemsCollection.Find(new BsonDocument()).ToList();
-            return documents;
+            itemsCollection.InsertOne(_db_word);
+        }
+
+        public void DeleteWordFromCollection(string word, string collectionName)
+        {
+            //var filter = filterBuilder.Eq(item => item.word, word.word);
+            //itemsCollection.DeleteOne(filter);
         }
 
        
-        //public Task<Word> GetWordByWord(string word_t)
-        //{
-        //    throw new System.NotImplementedException();
-        //}
-
-        public void TakeToWordCollection(Word item,  string collectionName)
-        {
-            itemsCollection = database.GetCollection<Word>(collectionName);
-            itemsCollection.InsertOne(item);
-        }
-
-        public void DeleteWordFromCollection(Word word)
-        {
-            var filter = filterBuilder.Eq(item => item.word, word.word);
-            itemsCollection.DeleteOne(filter);
-        }
-
-        public Task<Word> GetWordByWord(string word_t)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<Word> GetWordFromAPI(string word_t)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

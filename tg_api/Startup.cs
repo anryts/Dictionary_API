@@ -41,13 +41,13 @@ namespace tg_api
                 return new MongoClient(settings);
             });
 
-            services.AddSingleton<IDictionaryClient, MongoDBRepository>();
+            services.AddSingleton<IDBRepository, MongoDBRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "tg_api", Version = "v1" });
             });
-            services.AddSingleton<DictionaryClient>();
+            services.AddSingleton<IDictionaryClient,DictionaryClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
