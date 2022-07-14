@@ -1,19 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using tg_api.Cleints;
 using tg_api.Clients;
-using tg_api.Configuration;
 using tg_api.Repositories;
 
 namespace tg_api
@@ -37,7 +29,7 @@ namespace tg_api
 
             services.AddSingleton<IMongoClient>(ServiceProvider =>
             {
-                var settings = MongoClientSettings.FromConnectionString("mongodb+srv://anryts:wer12345@cluster0.vaskk.mongodb.net/?retryWrites=true&w=majority"); ;
+                var settings = MongoClientSettings.FromConnectionString(Support.Links._mongo_link); ;
                 return new MongoClient(settings);
             });
 

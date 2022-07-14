@@ -3,6 +3,10 @@
 namespace tg_api.Models
 {
     // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
+   
+    /// <summary>
+    /// this response become from https://od-api.oxforddictionaries.com/api/v2/entries
+    /// </summary>
     public class RootOfEntries
     {
         public string id { get; set; }
