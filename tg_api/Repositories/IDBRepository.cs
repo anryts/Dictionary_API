@@ -6,8 +6,9 @@ namespace tg_api.Repositories
 {
     public interface IDBRepository
     {
-        Task<List<string>> AllWords(string collectionName);
+        Task<List<string>> GetAllWords(string collectionName);
         void DeleteWordFromCollection(string word, string collectionName);
-        void TakeWordToCollection(string  item, string collectionName);
+        void PutWordToCollection(string item, string collectionName);
+        void PutCollectionToCollection(List<string> collection, string collectionName);
     }
 }

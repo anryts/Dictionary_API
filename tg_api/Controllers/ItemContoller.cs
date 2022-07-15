@@ -14,7 +14,6 @@ namespace tg_api.Controllers
     {
         private readonly IDictionaryClient _dictionaryClient;
         private readonly IDBRepository _repository;
-        public Word tmp = new();
         public ItemContoller(IDictionaryClient dictionaryClient, IDBRepository repository)
         {
             _dictionaryClient = dictionaryClient;
@@ -57,14 +56,20 @@ namespace tg_api.Controllers
         [HttpGet("getCollection")]
         public async Task<List<string>> GetAllWordsFromDB(string name_of_collection)
         {
-            var result = await _repository.AllWords(name_of_collection);
+            var result = await _repository.GetAllWords(name_of_collection);
             return result;
         }
 
-        [HttpPost("toCollection")]
+        [HttpPost("toCollectionSingleWord")]
         public async Task PutWordToDB(string word, string name_of_collection)
         {
-            _repository.TakeWordToCollection(word, name_of_collection);
+            _repository.PutWordToCollection(word, name_of_collection);
+        }
+
+        [HttpPost("toCollectionAnotherCollection")]
+        public async Task PutCollectionToDB (List<string> collection, string name_of_collection)
+        {
+            _repository.PutCollectionToCollection(collection, name_of_collection);
         }
 
         [HttpDelete("deleteFromCollection")]

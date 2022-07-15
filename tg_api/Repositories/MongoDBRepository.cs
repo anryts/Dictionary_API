@@ -11,7 +11,6 @@ namespace tg_api.Repositories
     {
         private const string databaseName = "collection";
         public IMongoCollection<Word> itemsCollection;
-        private Word _db_word = new Word();
         private readonly FilterDefinitionBuilder<Word> filterBuilder = Builders<Word>.Filter;
         IMongoDatabase database;
         public MongoDBRepository(IMongoClient mongoClient)
@@ -19,13 +18,8 @@ namespace tg_api.Repositories
             database = mongoClient.GetDatabase(databaseName);
         }
 
-        //public void CreateItem(string word, string collectionName)
-        //{
-        //    itemsCollection = database.GetCollection<Word>(collectionName);
-        //    itemsCollection.InsertOne(Word);
-        //}
 
-        public async Task<List<string>> AllWords(string collectionName)
+        public async Task<List<string>> GetAllWords(string collectionName)
         {
             List<string> words = new List<string>();
             itemsCollection = database.GetCollection<Word>(collectionName);
@@ -34,11 +28,11 @@ namespace tg_api.Repositories
             return words;
         }
 
-        public void TakeWordToCollection(string item, string collectionName)
+        public void PutWordToCollection(string item, string collectionName)
         {
-            _db_word.word = item;
+            Word db_word = new( item);
             itemsCollection = database.GetCollection<Word>(collectionName);
-            itemsCollection.InsertOne(_db_word);
+            itemsCollection.InsertOne(db_word);
         }
 
         public void DeleteWordFromCollection(string word, string collectionName)
@@ -47,6 +41,10 @@ namespace tg_api.Repositories
             //itemsCollection.DeleteOne(filter);
         }
 
-       
+        public void PutCollectionToCollection(List<string> collection, string collectionName)
+        {
+            itemsCollection = database.GetCollection<Word>(collectionName);
+            collection.ForEach(x => itemsCollection.InsertOne(new Word(x)));
+        }
     }
 }
