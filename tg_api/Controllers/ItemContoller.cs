@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using tg_api.Clients;
 using System.Threading.Tasks;
 using tg_api.DataManipulation;
-using tg_api.Models;
 using tg_api.Repositories;
 
 namespace tg_api.Controllers
