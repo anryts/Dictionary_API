@@ -20,5 +20,15 @@ namespace tg_api.GoogleTranslate
         {
             return _client.TranslateText(word, target_lang).TranslatedText;
         }
+        /// <summary>
+        /// this method doesn't support ukranian :(
+        /// </summary>
+        /// <param name="sentence"> your sentence</param>
+        /// <param name="origin_lang">you can put nothing</param>
+        /// <returns></returns>
+        public static string TranslateSentence(string sentence, string origin_lang, string target_lang)
+        {
+            return _client.TranslateText(sentence, target_lang, origin_lang==null?DetectLanguage(sentence):origin_lang).TranslatedText;
+        }
     }
 }

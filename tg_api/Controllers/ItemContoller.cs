@@ -28,6 +28,12 @@ namespace tg_api.Controllers
             return getPartsOfEntries.ReturnVoicePronunce(tmp);
         }
 
+        [HttpGet("translate")]
+        public async Task<string> GetTranslation(string sentence, string origin_lang, string target_lang)
+        {
+            return GoogleTranslate.GoogleTranslate.TranslateSentence(sentence, origin_lang, target_lang);
+        }
+        
 
         [HttpGet("shortDefinition")]
         public async Task<List<string>> GetSimpleDefinition(string word)
