@@ -1,6 +1,10 @@
-﻿namespace tg_api.Dtos;
+﻿using System;
 
-public class UserDto
+namespace tg_api.Dtos
 {
-    
+    public class UserDto
+    {
+        public string Username { get; set; } = string.Empty;
+        public string Password { get; set; } = String.Empty;
+    }
 }

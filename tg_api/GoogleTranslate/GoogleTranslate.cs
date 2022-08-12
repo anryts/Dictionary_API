@@ -11,7 +11,7 @@ namespace tg_api.GoogleTranslate
             return _client.DetectLanguage(word).Language;
         }
 
-
+        
         /// <summary>
         ///target_lang - in which language this text will be translate 
         ///example : 'en'

@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using tg_api.Clients;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using tg_api.DataManipulation;
 using tg_api.Repositories;
 
@@ -9,6 +11,7 @@ namespace tg_api.Controllers
 {
     [Route("api/v1")]
     [ApiController]
+    [Authorize]
     public class ItemContoller : ControllerBase
     {
         private readonly IDictionaryClient _dictionaryClient;
@@ -18,8 +21,6 @@ namespace tg_api.Controllers
             _dictionaryClient = dictionaryClient;
             _repository = repository;
         }
-
-
         
         [HttpGet("audio")]
         public async Task<string> GetWord(string word)
@@ -28,7 +29,7 @@ namespace tg_api.Controllers
             return getPartsOfEntries.ReturnVoicePronunce(tmp);
         }
 
-        [HttpGet("translate")]
+        [HttpGet("translate"), AllowAnonymous]
         public async Task<string> GetTranslation(string sentence, string origin_lang, string target_lang)
         {
             return GoogleTranslate.GoogleTranslate.TranslateSentence(sentence, origin_lang, target_lang);

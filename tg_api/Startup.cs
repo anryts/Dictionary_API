@@ -1,10 +1,15 @@
+using System;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
+using Swashbuckle.AspNetCore.Filters;
 using tg_api.Clients;
 using tg_api.Repositories;
 
@@ -20,7 +25,7 @@ namespace tg_api
         {
             Configuration = configuration;
         }
-
+        
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -37,9 +42,32 @@ namespace tg_api
 
             services.AddSingleton<IDBRepository, MongoDBRepository>();
             services.AddControllers();
-            services.AddSwaggerGen(c =>
+            services.AddAuthentication(
+                    JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+                            .GetBytes(this.Configuration.GetSection("AppSettings:Token").Value)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+            services.AddSwaggerGen(swaggerGenOptions =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "tg_api", Version = "v1" });
+                swaggerGenOptions.SwaggerDoc("v1", new OpenApiInfo { Title = "tg_api", Version = "v1" });
+                swaggerGenOptions.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Description = "Standart Authorization header (\"bearer {token}\")",
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                
+                swaggerGenOptions.OperationFilter<SecurityRequirementsOperationFilter>();
+                
             });
             services.AddSingleton<IDictionaryClient,DictionaryClient>();
         }
@@ -53,6 +81,11 @@ namespace tg_api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "tg_api v1"));
             }
+
+            app.UseAuthentication();
+
+            app.UseAuthorization();
+            
             app.UseCors(builder => builder.AllowAnyOrigin());
             app.UseHttpsRedirection();
 
