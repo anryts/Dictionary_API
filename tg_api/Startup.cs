@@ -1,4 +1,3 @@
-using System;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -34,7 +33,7 @@ namespace tg_api
             services.AddCors(); // Make sure you call this previous to AddMvc
             services.AddMvc();
 
-            services.AddSingleton<IMongoClient>(ServiceProvider =>
+            services.AddSingleton<IMongoClient>(serviceProvider =>
             {
                 var settings = MongoClientSettings.FromConnectionString(Support.Links._mongo_link); ;
                 return new MongoClient(settings);

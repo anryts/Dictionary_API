@@ -25,6 +25,7 @@ namespace tg_api.Controllers
 
         private readonly IConfiguration _configuration;
 
+        
         public AuthController(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -41,7 +42,7 @@ namespace tg_api.Controllers
             string token = CreateToken(user);
             return Ok(token);
         }
-
+       
         private string CreateToken(User user)
         {
             List<Claim> claims = new List<Claim>
@@ -68,7 +69,7 @@ namespace tg_api.Controllers
                 return BadRequest("User not found.");
             if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
                 return BadRequest("Wrong password");
-            return Ok();
+            return Ok("All working");
         }
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
