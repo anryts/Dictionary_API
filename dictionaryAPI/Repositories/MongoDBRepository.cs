@@ -2,10 +2,10 @@
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using tg_api.Clients;
-using tg_api.Models;
+using dictionaryAPI.Models;
+using dictionaryAPI.Clients;
 
-namespace tg_api.Repositories
+namespace dictionaryAPI.Repositories
 {
     public class MongoDBRepository : IDBRepository
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace tg_api.Models
+namespace dictionaryAPI.Models
 {
     public class User
     {

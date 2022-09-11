@@ -1,4 +1,4 @@
-﻿namespace tg_api.Configuration
+﻿namespace dictionaryAPI.Configuration
 {
     public class MongoDBsettings
     {

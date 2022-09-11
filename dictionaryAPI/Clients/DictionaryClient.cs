@@ -2,10 +2,10 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using tg_api.Models;
-using tg_api.Support;
+using dictionaryAPI.Models;
+using dictionaryAPI.Support;
 
-namespace tg_api.Clients
+namespace dictionaryAPI.Clients
 {
     public class DictionaryClient : IDictionaryClient
     {

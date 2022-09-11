@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace tg_api.Dtos
+namespace dictionaryAPI.Dtos
 {
     public class UserDto
     {

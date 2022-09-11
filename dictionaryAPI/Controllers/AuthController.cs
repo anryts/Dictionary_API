@@ -5,13 +5,13 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using dictionaryAPI.Dtos;
+using dictionaryAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using tg_api.Dtos;
-using tg_api.Models;
 
-namespace tg_api.Controllers
+namespace dictionaryAPI.Controllers
 {
 
     [Route("api/[controller]")]

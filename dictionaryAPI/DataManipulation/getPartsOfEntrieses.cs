@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using tg_api.Models;
+using dictionaryAPI.Models;
 
 
-namespace tg_api.DataManipulation
+namespace dictionaryAPI.DataManipulation
 {
     static class getPartsOfEntries 
     {

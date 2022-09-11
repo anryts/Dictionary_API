@@ -1,17 +1,17 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using tg_api.Clients;
 using System.Threading.Tasks;
+using dictionaryAPI.Clients;
+using dictionaryAPI.DataManipulation;
+using dictionaryAPI.Repositories;
 using Microsoft.AspNetCore.Authorization;
-using tg_api.DataManipulation;
-using tg_api.Repositories;
 
-namespace tg_api.Controllers
+namespace dictionaryAPI.Controllers
 {
     [Route("api/v1")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ItemContoller : ControllerBase
     {
         private readonly IDictionaryClient _dictionaryClient;

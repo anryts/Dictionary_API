@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace tg_api.Models
+namespace dictionaryAPI.Models
 {
     // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
    

@@ -1,7 +1,7 @@
-﻿using Google.Cloud.Translation.V2;
-using tg_api.Support;
+﻿using dictionaryAPI.Support;
+using Google.Cloud.Translation.V2;
 
-namespace tg_api.GoogleTranslate
+namespace dictionaryAPI.GoogleTranslate
 {
     static class GoogleTranslate
     {

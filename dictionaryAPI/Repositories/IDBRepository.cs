@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using tg_api.Models;
+using dictionaryAPI.Models;
 
-namespace tg_api.Repositories
+namespace dictionaryAPI.Repositories
 {
     public interface IDBRepository
     {

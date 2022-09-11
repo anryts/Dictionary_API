@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace tg_api.Models
+namespace dictionaryAPI.Models
 {
         /// <summary>
         /// uses in DB
