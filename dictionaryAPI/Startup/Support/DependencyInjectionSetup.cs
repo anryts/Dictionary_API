@@ -8,6 +8,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
 using Swashbuckle.AspNetCore.Filters;
+using tg_api.Support;
+
 public static class DependencyInjectionSetup
 {
     public static IServiceCollection AddDependencyInjectionSetup(this IServiceCollection services)
@@ -23,19 +25,7 @@ public static class DependencyInjectionSetup
     
         services.AddSingleton<IDBRepository, MongoDBRepository>();
         services.AddControllers();
-        /*services.AddAuthentication(
-                JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
-                        .GetBytes(this.Configuration.GetSection("AppSettings:Token").Value)),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
-                };
-            });*/
+        //services.UseAuth();
         services.AddSwaggerGen(swaggerGenOptions =>
         {
             swaggerGenOptions.SwaggerDoc("v1", new OpenApiInfo { Title = "dictionaryAPI", Version = "v1" });
