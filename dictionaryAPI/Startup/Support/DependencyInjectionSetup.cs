@@ -29,13 +29,13 @@ public static class DependencyInjectionSetup
         services.AddSwaggerGen(swaggerGenOptions =>
         {
             swaggerGenOptions.SwaggerDoc("v1", new OpenApiInfo { Title = "dictionaryAPI", Version = "v1" });
-            swaggerGenOptions.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+            /*swaggerGenOptions.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
             {
                 Description = "Standart Authorization header (\"bearer {token}\")",
                 In = ParameterLocation.Header,
                 Name = "Authorization",
                 Type = SecuritySchemeType.ApiKey
-            });
+            });*/
                 
             swaggerGenOptions.OperationFilter<SecurityRequirementsOperationFilter>();
                 

@@ -11,7 +11,7 @@ namespace dictionaryAPI.Controllers
 {
     [Route("api/v1")]
     [ApiController]
-    [Authorize]
+ //   [Authorize]
     public class ItemContoller : ControllerBase
     {
         private readonly IDictionaryClient _dictionaryClient;
