@@ -21,9 +21,6 @@ builder.Services.AddAuthentication(
                     ValidateAudience = false
         }
     );
-       
-
-
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
@@ -42,10 +39,4 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
 });
-
-
-
 app.Run();
-
-
-//builder.Services.Configure<MvcOptions>();
