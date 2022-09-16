@@ -6,8 +6,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using tg_api.Support;
 
+
 var builder = WebApplication.CreateBuilder(args);
-/*builder.Services.AddAuthentication(
+builder.Services.AddDependencyInjectionSetup();
+builder.Services.AddAuthentication(
     JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options=>
         options.TokenValidationParameters = new TokenValidationParameters
@@ -18,9 +20,9 @@ var builder = WebApplication.CreateBuilder(args);
                  ValidateIssuer = false,
                     ValidateAudience = false
         }
-    );*/
+    );
        
-builder.Services.AddDependencyInjectionSetup();
+
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
@@ -31,10 +33,11 @@ else
 {
     app.UseHttpsRedirection();
 }
+app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
 app.GetMapEndpoint();
-app.UseRouting();
 app.UseCors(builder => builder.AllowAnyOrigin());
-app.UseRouting();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
