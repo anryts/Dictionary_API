@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿namespace dictionaryAPI.Models;
 
-namespace dictionaryAPI.Models
+public class User
 {
-    public class User
-    {
-        public string Username { get; set; } = string.Empty;
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
-    }
+    public string Username { get; set; } = string.Empty;
+    public byte[] PasswordHash { get; set; }
+    public byte[] PasswordSalt { get; set; }
 }

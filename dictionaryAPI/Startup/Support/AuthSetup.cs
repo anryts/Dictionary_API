@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
-namespace tg_api.Support;
+namespace dictionaryAPI.Startup.Support;
 
 public static class AuthSetup
 {

@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using System;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,32 +8,33 @@ using dictionaryAPI.Clients;
 
 namespace dictionaryAPI.Repositories
 {
-    public class MongoDBRepository : IDBRepository
+    public class MongoDbRepository : IDBRepository
     {
-        private const string databaseName = "collection";
-        public IMongoCollection<Word> itemsCollection;
-        private readonly FilterDefinitionBuilder<Word> filterBuilder = Builders<Word>.Filter;
-        IMongoDatabase database;
-        public MongoDBRepository(IMongoClient mongoClient)
+        private const string DatabaseName = "collection";
+        public IMongoCollection<Word> ItemsCollection;
+        private readonly FilterDefinitionBuilder<Word> _filterBuilder = Builders<Word>.Filter;
+        readonly IMongoDatabase _database;
+        public MongoDbRepository(IMongoClient mongoClient)
         {
-            database = mongoClient.GetDatabase(databaseName);
+            _database = mongoClient.GetDatabase(DatabaseName);
         }
 
 
-        public async Task<List<string>> GetAllWords(string collectionName)
+        public Task<List<string>> GetAllWords(string collectionName)
         {
             List<string> words = new List<string>();
-            itemsCollection = database.GetCollection<Word>(collectionName);
-            var documents = itemsCollection.Find(new BsonDocument()).ToList();
-            documents.ForEach(x => words.Add(x.word));
-            return words;
+            ItemsCollection = _database.GetCollection<Word>(collectionName);
+            var documents = ItemsCollection.Find(new BsonDocument()).ToList();
+            documents.ForEach(x => words.Add(x.Text));
+            return Task.FromResult(words);
         }
 
         public void PutWordToCollection(string item, string collectionName)
         {
-            Word db_word = new( item);
-            itemsCollection = database.GetCollection<Word>(collectionName);
-            itemsCollection.InsertOne(db_word);
+            Word dbWord = new( item);
+            if (dbWord == null)  throw new ArgumentNullException(nameof(dbWord)); // in this case, probably need to add 404 status code or something else.
+            ItemsCollection = _database.GetCollection<Word>(collectionName);
+            ItemsCollection.InsertOne(dbWord);
         }
 
         public void DeleteWordFromCollection(string word, string collectionName)
@@ -43,8 +45,8 @@ namespace dictionaryAPI.Repositories
 
         public void PutCollectionToCollection(List<string> collection, string collectionName)
         {
-            itemsCollection = database.GetCollection<Word>(collectionName);
-            collection.ForEach(x => itemsCollection.InsertOne(new Word(x)));
+            ItemsCollection = _database.GetCollection<Word>(collectionName);
+            collection.ForEach(x => ItemsCollection.InsertOne(new Word(x)));
         }
     }
 }

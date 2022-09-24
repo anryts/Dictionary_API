@@ -32,7 +32,7 @@ namespace dictionaryAPI.Controllers
         }
         
         [HttpPost("register")]
-        public async Task<ActionResult<User>> Register(UserDto request)
+        public Task<ActionResult<User>> Register(UserDto request)
         {
             CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
             user.Username = request.Username;
@@ -40,7 +40,7 @@ namespace dictionaryAPI.Controllers
             user.PasswordSalt = passwordSalt;
 
             string token = CreateToken(user);
-            return Ok(token);
+            return  Task.FromResult<ActionResult<User>>(Ok(token));
         }
        
         private string CreateToken(User user)
@@ -63,13 +63,13 @@ namespace dictionaryAPI.Controllers
         }
 
     [HttpPost("login")]
-        public async Task<ActionResult<string>> Login(UserDto request)
+        public Task<ActionResult<string>> Login(UserDto request)
         {
             if (user.Username != request.Username)
-                return BadRequest("User not found.");
+                return Task.FromResult<ActionResult<string>>(BadRequest("User not found."));
             if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
-                return BadRequest("Wrong password");
-            return Ok("All working");
+                return Task.FromResult<ActionResult<string>>(BadRequest("Wrong password"));
+            return Task.FromResult<ActionResult<string>>(Ok("All working"));
         }
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {

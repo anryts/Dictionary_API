@@ -9,150 +9,152 @@ namespace dictionaryAPI.Models
     /// </summary>
     public class RootOfEntries
     {
-        public string id { get; set; }
-        public Metadata metadata { get; set; }
-        public List<Result> results { get; set; }
-        public string word { get; set; }
+        public string Id { get; set; }
+        public Metadata Metadata { get; set; }
+        public List<Result> Results { get; set; }
+        public string Word { get; set; }
     }
     public class Construction
     {
-        public string text { get; set; }
+        public string Text { get; set; }
     }
 
     public class Derivative
     {
-        public string id { get; set; }
-        public string text { get; set; }
+        public string Id { get; set; }
+        public string Text { get; set; }
     }
 
     public class DomainClass
     {
-        public string id { get; set; }
-        public string text { get; set; }
+        public string Id { get; set; }
+        public string Text { get; set; }
     }
 
     public class Entry
     {
-        public List<string> etymologies { get; set; }
-        public List<Pronunciation> pronunciations { get; set; }
-        public List<Sense> senses { get; set; }
-        public List<GrammaticalFeature> grammaticalFeatures { get; set; }
+        public List<string> Etymologies { get; set; }
+        public List<Pronunciation> Pronunciations { get; set; }
+        public List<Sense> Senses { get; set; }
+        public List<GrammaticalFeature> GrammaticalFeatures { get; set; }
     }
 
     public class Example
     {
-        public string text { get; set; }
+        public string Text { get; set; }
     }
 
     public class GrammaticalFeature
     {
-        public string id { get; set; }
-        public string text { get; set; }
-        public string type { get; set; }
+        public string Id { get; set; }
+        public string Text { get; set; }
+        public string Type { get; set; }
     }
 
     public class LexicalCategory
     {
-        public string id { get; set; }
-        public string text { get; set; }
+        public string Id { get; set; }
+        public string Text { get; set; }
     }
 
     public class LexicalEntry
     {
-        public List<Derivative> derivatives { get; set; }
-        public List<Entry> entries { get; set; }
-        public string language { get; set; }
-        public LexicalCategory lexicalCategory { get; set; }
-        public string text { get; set; }
+        public List<Derivative> Derivatives { get; set; }
+        public List<Entry> Entries { get; set; }
+        public string Language { get; set; }
+        public LexicalCategory LexicalCategory { get; set; }
+        public string Text { get; set; }
     }
 
     public class Metadata
     {
-        public string operation { get; set; }
-        public string provider { get; set; }
-        public string schema { get; set; }
+        public string Operation { get; set; }
+        public string Provider { get; set; }
+        public string Schema { get; set; }
     }
 
     public class Note
     {
-        public string text { get; set; }
-        public string type { get; set; }
+        public string Text { get; set; }
+        public string Type { get; set; }
     }
 
     public class Pronunciation
     {
-        public string audioFile { get; set; }
-        public List<string> dialects { get; set; }
-        public string phoneticNotation { get; set; }
-        public string phoneticSpelling { get; set; }
+        public string AudioFile { get; set; }
+        public List<string> Dialects { get; set; }
+        public string PhoneticNotation { get; set; }
+        public string PhoneticSpelling { get; set; }
     }
 
     public class Region
     {
-        public string id { get; set; }
-        public string text { get; set; }
+        public string Id { get; set; }
+        public string Text { get; set; }
     }
 
     public class Register
     {
-        public string id { get; set; }
-        public string text { get; set; }
+        public string Id { get; set; }
+        public string Text { get; set; }
     }
 
     public class Result
     {
-        public string id { get; set; }
-        public string language { get; set; }
-        public List<LexicalEntry> lexicalEntries { get; set; }
-        public string type { get; set; }
-        public string word { get; set; }
+        public string Id { get; set; }
+        public string Language { get; set; }
+        public List<LexicalEntry> LexicalEntries { get; set; }
+        public string Type { get; set; }
+        public string Word { get; set; }
     }
 
 
     public class SemanticClass
     {
-        public string id { get; set; }
-        public string text { get; set; }
+        public string Id { get; set; }
+        public string Text { get; set; }
     }
 
     public class Sense
     {
-        public List<string> definitions { get; set; }
-        public List<DomainClass> domainClasses { get; set; }
-        public string id { get; set; }
-        public List<SemanticClass> semanticClasses { get; set; }
-        public List<string> shortDefinitions { get; set; }
-        public List<Subsense> subsenses { get; set; }
-        public List<Synonym> synonyms { get; set; }
-        public List<ThesaurusLink> thesaurusLinks { get; set; }
-        public List<Example> examples { get; set; }
-        public List<Note> notes { get; set; }
-        public List<Region> regions { get; set; }
-        public List<Register> registers { get; set; }
+        public List<string> Definitions { get; set; }
+        public List<DomainClass> DomainClasses { get; set; }
+        public string Id { get; set; }
+        public List<SemanticClass> SemanticClasses { get; set; }
+
+        public List<string> ShortDefinitions { get; set; }
+
+        public List<Subsense> Subsenses { get; set; }
+        public List<Synonym> Synonyms { get; set; }
+        public List<ThesaurusLink> ThesaurusLinks { get; set; }
+        public List<Example> Examples { get; set; }
+        public List<Note> Notes { get; set; }
+        public List<Region> Regions { get; set; }
+        public List<Register> Registers { get; set; }
     }
 
     public class Subsense
     {
-        public List<string> definitions { get; set; }
-        public List<DomainClass> domainClasses { get; set; }
-        public List<Example> examples { get; set; }
-        public string id { get; set; }
-        public List<SemanticClass> semanticClasses { get; set; }
-        public List<string> shortDefinitions { get; set; }
-        public List<Construction> constructions { get; set; }
-        public List<Note> notes { get; set; }
+        public List<string> Definitions { get; set; }
+        public List<DomainClass> DomainClasses { get; set; }
+        public List<Example> Examples { get; set; }
+        public string Id { get; set; }
+        public List<SemanticClass> SemanticClasses { get; set; }
+        public List<string> ShortDefinitions { get; set; }
+        public List<Construction> Constructions { get; set; }
+        public List<Note> Notes { get; set; }
     }
 
     public class Synonym
     {
-        public string language { get; set; }
-        public string text { get; set; }
+        public string Language { get; set; }
+        public string Text { get; set; }
     }
 
     public class ThesaurusLink
     {
-        public string entry_id { get; set; }
-        public string sense_id { get; set; }
+        public string EntryId { get; set; }
+        public string SenseId { get; set; }
     }
 
 

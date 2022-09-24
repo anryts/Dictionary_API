@@ -1,4 +1,5 @@
 using System.Text;
+using dictionaryAPI.Startup.Support;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,7 +35,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.GetMapEndpoint();
-app.UseCors(builder => builder.AllowAnyOrigin());
+app.UseCors(policyBuilder => policyBuilder.AllowAnyOrigin());
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();

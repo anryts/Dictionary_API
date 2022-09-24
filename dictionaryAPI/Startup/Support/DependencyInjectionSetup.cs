@@ -1,14 +1,12 @@
-﻿using System.Text;
-using dictionaryAPI.Clients;
+﻿using dictionaryAPI.Clients;
 using dictionaryAPI.Repositories;
 using dictionaryAPI.Support;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
 using Swashbuckle.AspNetCore.Filters;
-using tg_api.Support;
+
+namespace dictionaryAPI.Startup.Support;
 
 public static class DependencyInjectionSetup
 {
@@ -17,13 +15,13 @@ public static class DependencyInjectionSetup
         services.AddCors(); // Make sure you call this previous to AddMvc
         services.AddMvc();
         
-        services.AddSingleton<IMongoClient>(serviceProvider =>
+        services.AddSingleton<IMongoClient>(_ =>
         {
-            var settings = MongoClientSettings.FromConnectionString(Links._mongo_link); ;
+            var settings = MongoClientSettings.FromConnectionString(Links._mongo_link);
             return new MongoClient(settings);
         });
     
-        services.AddSingleton<IDBRepository, MongoDBRepository>();
+        services.AddSingleton<IDBRepository, MongoDbRepository>();
         services.AddControllers();
         //services.UseAuth();
         services.AddSwaggerGen(swaggerGenOptions =>

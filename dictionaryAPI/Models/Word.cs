@@ -11,11 +11,11 @@ namespace dictionaryAPI.Models
             /// field word is id 
             /// </summary>
             [BsonId]
-            public string word { get; set; }
+            public string Text { get; set; }
 
-            public Word(string word)
+            public Word(string text)
         {
-            this.word = word;
+            this.Text = text;
         }
       
         }

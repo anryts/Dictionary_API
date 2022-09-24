@@ -5,23 +5,23 @@ using dictionaryAPI.Models;
 
 namespace dictionaryAPI.DataManipulation
 {
-    static class getPartsOfEntries 
+    internal static class GetPartsOfEntries 
     {
-        static Random _rn = new Random();
+        private static readonly Random Rn = new Random();
         public static string ReturnRandomExample(RootOfSentences word)
         {
-            List<string> _examples = new();
-            foreach (var results in word.results)
+            List<string> examples = new();
+            foreach (var results in word.Results)
             {
-                foreach (var lexicalEntry in results.lexicalEntries)
+                foreach (var lexicalEntry in results.LexicalEntries)
                 {
-                    foreach (var sentence in lexicalEntry.sentences)
+                    foreach (var sentence in lexicalEntry.Sentences)
                     {
-                        _examples.Add(sentence.text);
+                        examples.Add(sentence.Text);
                     }
                 }
             }
-            return _examples[_rn.Next(0, _examples.Count)];
+            return examples[Rn.Next(0, examples.Count)];
         }
 
         ///<summary>
@@ -31,52 +31,52 @@ namespace dictionaryAPI.DataManipulation
         ///</summary>
         public static List<string> ReturnDefinitionWithPronunciation(RootOfEntries word)
         {
-            var return_list = new List<string>();
-            var list_definitions = new List<string>();
-            string text_pronunce = default;
-            foreach (var result in word.results)
+            var returnList = new List<string>();
+            var listDefinitions = new List<string>();
+            string textPronunce = default;
+            foreach (var result in word.Results)
             {
-                foreach (var lexicalEntry in result.lexicalEntries)
+                foreach (var lexicalEntry in result.LexicalEntries)
                 {
-                    foreach (var entry in lexicalEntry.entries)
+                    foreach (var entry in lexicalEntry.Entries)
                     { 
-                        foreach (var tmp in entry.pronunciations)
+                        foreach (var tmp in entry.Pronunciations)
                         {
-                            if (tmp.phoneticSpelling != null)
+                            if (tmp.PhoneticSpelling != null)
                             {
-                                text_pronunce = tmp.phoneticSpelling;
+                                textPronunce = tmp.PhoneticSpelling;
                                 break;
                             }
                         }
-                        foreach (var sense in entry.senses)
+                        foreach (var sense in entry.Senses)
                         {
-                            foreach (var tmp in sense.shortDefinitions)
+                            foreach (var tmp in sense.ShortDefinitions)
                             {
-                                list_definitions.Add(tmp);
+                                listDefinitions.Add(tmp);
                             }
                         }
                             
                     }
                 }
             }
-            return_list.Add(text_pronunce);
-            return_list.Add(list_definitions[_rn.Next(0, list_definitions.Count - 1)]);
-            return return_list;
+            returnList.Add(textPronunce);
+            returnList.Add(listDefinitions[Rn.Next(0, listDefinitions.Count - 1)]);
+            return returnList;
         }
 
         public static string ReturnVoicePronunce (RootOfEntries word)
         {
-            foreach (var result in word.results)
+            foreach (var result in word.Results)
             {
-                foreach (var lexicalEntry in result.lexicalEntries)
+                foreach (var lexicalEntry in result.LexicalEntries)
                 {
-                    foreach (var entry in lexicalEntry.entries)
+                    foreach (var entry in lexicalEntry.Entries)
                     {
-                        foreach (var tmp in entry.pronunciations)
+                        foreach (var tmp in entry.Pronunciations)
                         {
-                            if (tmp.phoneticSpelling != null)
+                            if (tmp.PhoneticSpelling != null)
                             {
-                                return tmp.audioFile;
+                                return tmp.AudioFile;
                             }
                         }
                         
@@ -88,26 +88,26 @@ namespace dictionaryAPI.DataManipulation
 
         public static string RandomSynonym (RootOfEntries word)
         {
-            var _list_of_synonyms = new List<string>();
+            var listOfSynonyms = new List<string>();
             try
             {
-                foreach (var result in word.results)
+                foreach (var result in word.Results)
                 {
-                    foreach (var lexicalEntry in result.lexicalEntries)
+                    foreach (var lexicalEntry in result.LexicalEntries)
                     {
-                        foreach (var entry in lexicalEntry.entries)
+                        foreach (var entry in lexicalEntry.Entries)
                         {
-                            foreach (var sense in entry.senses)
+                            foreach (var sense in entry.Senses)
                             {
-                                foreach (var tmp in sense.synonyms)
+                                foreach (var tmp in sense.Synonyms)
                                 {
-                                    _list_of_synonyms.Add(tmp.text);
+                                    listOfSynonyms.Add(tmp.Text);
                                 }
                             }
                         }
                     }
                 }
-                return _list_of_synonyms[_rn.Next(0, _list_of_synonyms.Count - 1)];
+                return listOfSynonyms[Rn.Next(0, listOfSynonyms.Count - 1)];
             }
             catch
             {

@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using dictionaryAPI.Clients;
@@ -11,7 +10,7 @@ namespace dictionaryAPI.Controllers
 {
     [Route("api/v1")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ItemContoller : ControllerBase
     {
         private readonly IDictionaryClient _dictionaryClient;
@@ -25,14 +24,14 @@ namespace dictionaryAPI.Controllers
         [HttpGet("audio")]
         public async Task<string> GetWord(string word)
         {
-           var tmp = await _dictionaryClient.GetWordFromAPI(word);
-            return getPartsOfEntries.ReturnVoicePronunce(tmp);
+            var tmp = await _dictionaryClient.GetWordFromAPI(word);
+            return GetPartsOfEntries.ReturnVoicePronunce(tmp);
         }
 
         [HttpGet("translate"), AllowAnonymous]
-        public async Task<string> GetTranslation(string sentence, string origin_lang, string target_lang)
+        public Task<string> GetTranslation(string sentence, string originLang, string targetLang)
         {
-            return GoogleTranslate.GoogleTranslate.TranslateSentence(sentence, origin_lang, target_lang);
+            return  Task.FromResult(GoogleTranslate.GoogleTranslate.TranslateSentence(sentence, originLang, targetLang));
         }
         
 
@@ -40,49 +39,52 @@ namespace dictionaryAPI.Controllers
         public async Task<List<string>> GetSimpleDefinition(string word)
         {
             var tmp = await _dictionaryClient.GetWordFromAPI(word);
-            return getPartsOfEntries.ReturnDefinitionWithPronunciation(tmp);
+            return GetPartsOfEntries.ReturnDefinitionWithPronunciation(tmp);
         }
 
         [HttpGet("synonym")]
         public async Task<string> GetSynonym(string word)
         {
             var result = await _dictionaryClient.GetWordFromAPI(word);
-            return getPartsOfEntries.RandomSynonym(result);
+            return GetPartsOfEntries.RandomSynonym(result);
         }
 
         [HttpGet("example")]
         public async Task<string> GetExample(string word)
         {
             var result = await _dictionaryClient.GetExampleByWord(word);
-            return getPartsOfEntries.ReturnRandomExample(result);
+            return GetPartsOfEntries.ReturnRandomExample(result);
         }
 
         
 
         [HttpGet("getCollection")]
-        public async Task<List<string>> GetAllWordsFromDB(string name_of_collection)
+        public async Task<List<string>> GetAllWordsFromDb(string nameOfCollection)
         {
-            var result = await _repository.GetAllWords(name_of_collection);
+            var result = await _repository.GetAllWords(nameOfCollection);
             return result;
         }
 
         [HttpPost("toCollectionSingleWord")]
-        public async Task PutWordToDB(string word, string name_of_collection)
+        public Task PutWordToDb(string word, string nameOfCollection)
         {
-            _repository.PutWordToCollection(word, name_of_collection);
+            _repository.PutWordToCollection(word, nameOfCollection);
+            return Task.CompletedTask;
         }
 
         [HttpPost("toCollectionAnotherCollection")]
-        public async Task PutCollectionToDB (List<string> collection, string name_of_collection)
+        public Task PutCollectionToDb (List<string> collection, string nameOfCollection)
         {
-            _repository.PutCollectionToCollection(collection, name_of_collection);
+            _repository.PutCollectionToCollection(collection, nameOfCollection);
+            return Task.CompletedTask;
         }
 
         [HttpDelete("deleteFromCollection")]
-        public async Task DeleteItem(string word, string name_of_collection)
+        public async Task DeleteItem(string word, string nameOfCollection)
         {
-            var tmp = await _dictionaryClient.GetWordFromAPI(word);
-            _repository.DeleteWordFromCollection(word, name_of_collection);
+            //need to do something with this
+            //var tmp = await _dictionaryClient.GetWordFromAPI(word);
+            _repository.DeleteWordFromCollection(word, nameOfCollection);
         }
 
     }
